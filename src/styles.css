@@ -21,6 +21,7 @@ body {
 }
 
 .search-input {
+  min-width: 150px;
   width: 20%;
   height: 30px;
   border-radius: 5px;
@@ -30,6 +31,7 @@ body {
 }
 
 .search-button {
+  min-width: 70px;
   width: 7%;
   border-radius: 5px;
   outline: none;
@@ -39,10 +41,11 @@ body {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+  padding: 0;
 }
 
 .imageItem {
-  width: 33%;
+  width: 334px;
 }
 
 .image {

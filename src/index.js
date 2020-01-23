@@ -50,8 +50,14 @@ const observer = new IntersectionObserver(onEntry, options);
 
 function insertListImages() {
   serviceSearchImages.fetchImages().then(imagesList => {
-    const markuplist = buildListMarkup(imagesList);
-    insertImages(markuplist);
+    if (imagesList.length !== 0) {
+      const markuplist = buildListMarkup(imagesList);
+      insertImages(markuplist);
+    } else {
+      PNotify.error({
+        text: '404 Not found',
+      });
+    }
   });
 }
 
