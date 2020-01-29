@@ -38,22 +38,21 @@ const onEntry = () => {
 };
 const observer = new IntersectionObserver(onEntry, options);
 
-function insertListImages() {
-  serviceSearchImages
-    .fetchImages()
-    .then((imagesList, onReject) => {
-      console.log(onReject);
-      console.log(imagesList);
-      if (imagesList.length !== 0) {
-        const markuplist = buildListMarkup(imagesList);
-        insertImages(markuplist);
-      } else {
-        PNotify.error({
-          text: '404 Not found',
-        });
-      }
-    })
-    .catch(console.log('Eror'));
+async function insertListImages() {
+  try {
+    let imagesList = await serviceSearchImages.fetchImages();
+    if (imagesList.length !== 0) {
+      const markuplist = buildListMarkup(imagesList);
+      insertImages(markuplist);
+    } else {
+      PNotify.error({
+        text: `${serviceSearchImages.query} not found`,
+      });
+      observer.disconnect();
+    }
+  } catch (err) {
+    console.log(err);
+  }
 }
 function buildListMarkup(items) {
   return templatesImagesList(items);

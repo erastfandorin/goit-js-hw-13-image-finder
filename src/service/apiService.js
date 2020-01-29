@@ -6,15 +6,17 @@ export default {
   query: '',
   perPage: 12,
   key: '14890929-23ffdef91aab059ee79f68fac',
-  fetchImages() {
+  fetchImages: async function() {
     const requestParams = `&q=${this.query}&page=${this.page}&per_page=${this.perPage}&key=${this.key}`;
-
-    return fetch(baseUrl + requestParams).then(response =>
-      response.json().then(parsedResponse => {
-        this.incrementPage();
-        return parsedResponse.hits;
-      }),
-    );
+    try {
+      let response = await fetch(baseUrl + requestParams);
+      let parsedResponse = await response.json();
+      let hits = await parsedResponse.hits;
+      this.incrementPage();
+      return hits;
+    } catch (err) {
+      console.log(err);
+    }
   },
   get searchQuery() {
     return this.query;
