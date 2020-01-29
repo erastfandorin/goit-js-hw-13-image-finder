@@ -61,14 +61,3 @@ function buildListMarkup(items) {
 function insertImages(items) {
   refs.gallery.insertAdjacentHTML('beforeend', items);
 }
-
-// Infinite Scroll with bourd "load more"
-
-// refs.button = document.querySelector('.button');
-// refs.button.addEventListener('click', clickButton);
-
-// function clickButton() {
-//   if (serviceSearchImages.searchQuery != +'') {
-//     insertListImages();
-//   }
-// }
