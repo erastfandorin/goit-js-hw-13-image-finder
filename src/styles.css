@@ -37,6 +37,14 @@ body {
   outline: none;
 }
 
+.link-pixabay {
+  text-align: center;
+}
+
+.link-pixabay-hide {
+  display: none;
+}
+
 .gallery {
   list-style-type: none;
   display: flex;

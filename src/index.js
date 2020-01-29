@@ -8,6 +8,7 @@ const refs = {
   searchForm: document.querySelector('.search-form'),
   gallery: document.querySelector('.gallery'),
   lazyLoad: document.querySelector('.Lazy-Load'),
+  linkPixabay: document.querySelector('.link-pixabay'),
 };
 
 refs.searchForm.addEventListener('submit', searchImages);
@@ -18,6 +19,9 @@ function searchImages(e) {
       text: '404 Not found',
     });
   } else {
+    if (refs.linkPixabay.className) {
+      refs.linkPixabay.classList.add('link-pixabay-hide');
+    }
     serviceSearchImages.resetPage();
     clearList();
     const searchValue = e.currentTarget.elements.query.value;
@@ -46,7 +50,7 @@ async function insertListImages() {
       insertImages(markuplist);
     } else {
       PNotify.error({
-        text: `${serviceSearchImages.query} not found`,
+        text: `"${serviceSearchImages.query}" not found`,
       });
       observer.disconnect();
     }
