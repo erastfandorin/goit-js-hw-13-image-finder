@@ -4,13 +4,14 @@ const baseUrl =
 export default {
   page: 1,
   query: '',
+  perPage: 12,
+  key: '14890929-23ffdef91aab059ee79f68fac',
   fetchImages() {
-    const requestParams = `&q=${this.query}&page=${this.page}&per_page=12&key=14890929-23ffdef91aab059ee79f68fac`;
+    const requestParams = `&q=${this.query}&page=${this.page}&per_page=${this.perPage}&key=${this.key}`;
 
     return fetch(baseUrl + requestParams).then(response =>
       response.json().then(parsedResponse => {
         this.incrementPage();
-
         return parsedResponse.hits;
       }),
     );

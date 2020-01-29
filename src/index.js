@@ -1,5 +1,4 @@
 import './styles.css';
-import '../node_modules/lodash';
 import serviceSearchImages from './service/apiService.js';
 import templatesImagesList from './templates/Image.hbs';
 import PNotify from '../node_modules/pnotify/dist/es/PNotify.js';
@@ -12,59 +11,53 @@ const refs = {
 };
 
 refs.searchForm.addEventListener('submit', searchImages);
-
 function searchImages(e) {
   e.preventDefault();
-
   if (e.currentTarget.elements.query.value === '') {
     PNotify.error({
       text: '404 Not found',
     });
   } else {
-    const searchValue = e.currentTarget.elements.query.value;
-
     serviceSearchImages.resetPage();
     clearList();
-
+    const searchValue = e.currentTarget.elements.query.value;
     serviceSearchImages.searchQuery = searchValue;
-
     observer.observe(refs.lazyLoad);
   }
 }
-
 function clearList() {
   refs.gallery.innerHTML = '';
 }
-
+// IntersectionObserver
 const options = {
   rootMargin: '150px',
   threshold: 0.2,
 };
-
-const onEntry = entries => {
-  entries.forEach(() => {
-    insertListImages();
-  });
+const onEntry = () => {
+  insertListImages();
 };
 const observer = new IntersectionObserver(onEntry, options);
 
 function insertListImages() {
-  serviceSearchImages.fetchImages().then(imagesList => {
-    if (imagesList.length !== 0) {
-      const markuplist = buildListMarkup(imagesList);
-      insertImages(markuplist);
-    } else {
-      PNotify.error({
-        text: '404 Not found',
-      });
-    }
-  });
+  serviceSearchImages
+    .fetchImages()
+    .then((imagesList, onReject) => {
+      console.log(onReject);
+      console.log(imagesList);
+      if (imagesList.length !== 0) {
+        const markuplist = buildListMarkup(imagesList);
+        insertImages(markuplist);
+      } else {
+        PNotify.error({
+          text: '404 Not found',
+        });
+      }
+    })
+    .catch(console.log('Eror'));
 }
-
 function buildListMarkup(items) {
   return templatesImagesList(items);
 }
-
 function insertImages(items) {
   refs.gallery.insertAdjacentHTML('beforeend', items);
 }
