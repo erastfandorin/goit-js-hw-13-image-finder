@@ -1,5 +1,7 @@
 ## Search image in [Pixabay API](https://pixabay.com/service/about/api/)
 
+<img src="promoForREADME.gif" width="500px">
+
 You can search image
 [here](https://erastfandorin.github.io/goit-js-hw-13-image-finder/)
 
